@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual Store - DrxTuning</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.3/dist/vanilla-tilt.min.js"></script>
+</head>
+<body style="background-image: var(--bg-store);">
+
+<header class="hero">
+  <h1 id="logoText">Premium Visual Store</h1>
+  <p class="subtitle">Ultra-detailed AI renders & wallpapers</p>
+</header>
+
+<main class="gallery">
+
+  <!-- 6 Folders -->
+  <div class="card gallery-scroll">
+    <h3 class="gradient-text">Fashion 4K</h3>
+    <p>High-resolution AI-generated fashion images</p>
+    <div class="scroll-container">
+      <img src="images/fashion1.jpg" alt="Fashion 1">
+      <img src="images/fashion2.jpg" alt="Fashion 2">
+      <img src="images/fashion3.jpg" alt="Fashion 3">
+    </div>
+  </div>
+
+  <div class="card gallery-scroll">
+    <h3 class="gradient-text">Cybernetic 4K</h3>
+    <p>Futuristic AI robot & cyberpunk visuals</p>
+    <div class="scroll-container">
+      <img src="images/cyber1.jpg" alt="Cyber 1">
+      <img src="images/cyber2.jpg" alt="Cyber 2">
+      <img src="images/cyber3.jpg" alt="Cyber 3">
+    </div>
+  </div>
+
+  <div class="card gallery-scroll">
+    <h3 class="gradient-text">Mythic 4K</h3>
+    <p>Fantasy & legendary AI illustrations</p>
+    <div class="scroll-container">
+      <img src="images/mythic1.jpg" alt="Mythic 1">
+      <img src="images/mythic2.jpg" alt="Mythic 2">
+      <img src="images/mythic3.jpg" alt="Mythic 3">
+    </div>
+  </div>
+
+  <div class="card gallery-scroll">
+    <h3 class="gradient-text">Toonverse 4K</h3>
+    <p>Cartoon & Disney-inspired AI visuals</p>
+    <div class="scroll-container">
+      <img src="images/toon1.jpg" alt="Toon 1">
+      <img src="images/toon2.jpg" alt="Toon 2">
+      <img src="images/toon3.jpg" alt="Toon 3">
+    </div>
+  </div>
+
+  <div class="card gallery-scroll">
+    <h3 class="gradient-text">Neo 4K</h3>
+    <p>Sci-fi & futuristic cityscapes AI renders</p>
+    <div class="scroll-container">
+      <img src="images/neo1.jpg" alt="Neo 1">
+      <img src="images/neo2.jpg" alt="Neo 2">
+      <img src="images/neo3.jpg" alt="Neo 3">
+    </div>
+  </div>
+
+  <div class="card gallery-scroll">
+    <h3 class="gradient-text">Dark 4K</h3>
+    <p>Mysterious & cinematic AI imagery</p>
+    <div class="scroll-container">
+      <img src="images/dark1.jpg" alt="Dark 1">
+      <img src="images/dark2.jpg" alt="Dark 2">
+      <img src="images/dark3.jpg" alt="Dark 3">
+    </div>
+  </div>
+
+  <!-- Neon Vault Stream -->
+  <div class="card gallery-scroll" id="neonVaultStream">
+    <h3 class="gradient-text">Neon Vault Stream</h3>
+    <p>Dynamic flowing AI visuals - randomized & cinematic</p>
+    <div class="scroll-container" id="vaultContainer">
+      <img src="images/vault1.jpg" alt="Vault 1">
+      <img src="images/vault2.jpg" alt="Vault 2">
+      <img src="images/vault3.jpg" alt="Vault 3">
+      <img src="images/vault4.jpg" alt="Vault 4">
+      <img src="images/vault5.jpg" alt="Vault 5">
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <img src="logo.png" alt="DrxTuning Logo">
+  <p>&copy; 2026 DrxTuning | <a href="terms.html">Terms</a> | <a href="about.html">About</a> | <a href="use.html">Use</a></p>
+</footer>
+
+<script src="main.js"></script>
+<script>
+/* ========================= INIT CARDS + VANILLA TILT + GSAP ========================= */
+document.querySelectorAll(".card").forEach((card, i) => {
+  VanillaTilt.init(card, { max:12, speed:500, glare:true, "max-glare":0.35, scale:1.05 });
+
+  gsap.from(card, {
+    scrollTrigger: { trigger: card, start: "top 85%" },
+    y: 100, opacity:0, delay:i*0.15, duration:1.2, ease:"power3.out"
+  });
+
+  const h3 = card.querySelector(".gradient-text");
+  if(h3){
+    h3.style.background="linear-gradient(90deg,#ff6a00,#ff00aa,#00e0ff,#ff6a00)";
+    h3.style.backgroundSize="300% 300%";
+    h3.style.webkitBackgroundClip="text";
+    h3.style.webkitTextFillColor="transparent";
+    h3.style.animation="logoFlow 6s linear infinite";
+  }
+});
+
+/* ========================= NEON VAULT STREAM MOTION ========================= */
+const vaultContainer = document.querySelector("#vaultContainer");
+const vaultImages = Array.from(vaultContainer.children);
+
+vaultImages.forEach((img, i) => {
+  // Random float animation
+  gsap.to(img, {
+    y: "random(-15,15)",
+    x: "random(-20,20)",
+    rotation: "random(-3,3)",
+    repeat:-1,
+    yoyo:true,
+    duration: 3 + Math.random()*2,
+    ease:"sine.inOut",
+    delay:i*0.2
+  });
+
+  // Optional: random reorder every 5-8 seconds
+  setInterval(() => {
+    vaultContainer.appendChild(vaultImages[Math.floor(Math.random()*vaultImages.length)]);
+  }, 6000 + Math.random()*2000);
+});
+</script>
+</body>
+</html>
